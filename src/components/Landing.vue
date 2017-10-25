@@ -9,8 +9,8 @@
       </blockquote>
     </v-flex>
     <v-flex class="text-xs-center" mt-5>
-      <v-btn primary to="/signup">Sign Up</v-btn>
-      <v-btn to="/signin">Sign In</v-btn>
+      <v-btn color="primary" to="/signup">Sign Up</v-btn>
+      <v-btn to="/login">Log In</v-btn>
     </v-flex>
   </v-layout>
 </template>

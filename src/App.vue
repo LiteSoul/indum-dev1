@@ -32,7 +32,7 @@
           v-for="item in menuItems"
           :key="item.title"
           :to="item.path">
-          <v-icon left dark>{{ item.icon }}</v-icon>
+          <v-icon left>{{ item.icon }}</v-icon>
           {{ item.title }}
         </v-btn>
       </v-toolbar-items>
@@ -55,8 +55,9 @@ export default {
       sidebar: false,
       menuItems: [
         { title: "Home", path: "/home", icon: "home" },
-        { title: "Sign Up", path: "/signup", icon: "face" },
-        { title: "Sign In", path: "/signin", icon: "lock_open" }
+        { title: "Users", path: "/users", icon: "face" },
+        { title: "Sign Up", path: "/signup", icon: "plus_one" },
+        { title: "Log In", path: "/login", icon: "lock_open" }
       ]
     };
   }
