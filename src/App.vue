@@ -39,9 +39,11 @@
     </v-toolbar>
     
     <main>
+      <div class="content" style="padding-top:64px">
       <v-container fluid>
         <router-view></router-view>
       </v-container>
+      </div>
     </main>
     
   </v-app>
