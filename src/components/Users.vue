@@ -36,8 +36,15 @@ export default {
     return {
       items: [
         {
-          header: "Item header",
+          header: "this is Item header",
+          title: "<p>title name</p>",
+          subtitle: "subtitle",
+          avatar: "https://vuetifyjs.com/static/doc-images/lists/1.jpg"
+        },
+        {
+          header: "this is Item header",
           title: "title name",
+          subtitle: "subtitle",
           avatar: "https://vuetifyjs.com/static/doc-images/lists/1.jpg"
         }
       ]
