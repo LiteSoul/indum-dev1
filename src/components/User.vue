@@ -2,6 +2,12 @@
 
 	<v-layout row>
 		<v-flex xs12 sm6 offset-sm3>
+
+			<div>
+				<h1>{{ msg }}</h1>
+					Hello {{ $route.params.id }}
+			</div>
+
 			<v-card>
 
 				<router-link to="/newuser">
@@ -51,6 +57,12 @@ export default {
     singleUser: function() {
       this.$router.push({ path: "/user/${user['.key']}" });
     }
+  },
+  id: "user['.key']",
+  data() {
+    return {
+      msg: "User ID"
+    };
   }
 };
 </script>

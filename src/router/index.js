@@ -9,7 +9,6 @@ const routerOptions = [
 	{ path: '/newuser', component: 'Newuser' },
 	{ path: '/login', component: 'Login' },
 	{ path: '/signup', component: 'Signup' },
-	{ path: "/user/${user['.key']}" }
 	{ path: '/user/:id', component: 'User' }
 ]
 

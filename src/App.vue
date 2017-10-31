@@ -57,11 +57,11 @@ export default {
       sidebar: false,
       menuItems: [
         { title: "Home", path: "/home", icon: "home" },
-        { title: "Users", path: "/users", icon: "face" },
-        { title: "Fireusers", path: "/fireusers", icon: "face" },
-        { title: "Newuser", path: "/newuser", icon: "face" },
-        { title: "Sign Up", path: "/signup", icon: "plus_one" },
-        { title: "Log In", path: "/login", icon: "lock_open" }
+        { title: "Miembros", path: "/users", icon: "people" },
+        { title: "FireMiembros", path: "/fireusers", icon: "people" },
+        { title: "Agregar", path: "/newuser", icon: "person_add" },
+        { title: "Registrarse", path: "/signup", icon: "lock_outline" },
+        { title: "Ingresar", path: "/login", icon: "lock_open" }
       ]
     };
   }

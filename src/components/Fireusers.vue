@@ -30,7 +30,7 @@
 								</v-list-tile-sub-title>
 							</v-list-tile-content>
 							<v-icon medium color="grey lighten-1">delete_forever</v-icon>
-							<router-link to="/user/:'user['.key']'">/user/{{user['.key']}}</router-link>
+							<router-link :to="user['.key']">/{{user['.key']}}</router-link>
 						</v-list-tile>
 					</template>
 				</v-list>
