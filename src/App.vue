@@ -53,12 +53,13 @@
 export default {
   data() {
     return {
-      appTitle: "Awesome App",
+      appTitle: "EnerGym Vue",
       sidebar: false,
       menuItems: [
         { title: "Home", path: "/home", icon: "home" },
         { title: "Users", path: "/users", icon: "face" },
         { title: "Fireusers", path: "/fireusers", icon: "face" },
+        { title: "Newuser", path: "/newuser", icon: "face" },
         { title: "Sign Up", path: "/signup", icon: "plus_one" },
         { title: "Log In", path: "/login", icon: "lock_open" }
       ]
