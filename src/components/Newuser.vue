@@ -3,7 +3,7 @@
 	<v-layout row>
 		<v-flex xs12 sm6 offset-sm3>
 
-			<form id="form" class="form-inline" v-on:submit="addUser">
+			<form id="form" class="form-inline" v-on:submit.prevent="addUser">
 				<div class="form-group">
 					<label for="userLastname">Last Name:</label>
 					<input type="text" id="userLastname" class="form-control" v-model="newUser.lastname">
@@ -29,6 +29,7 @@
 					<input type="text" id="userEmail" class="form-control" v-model="newUser.email">
 				</div>
 				<input type="submit" class="btn btn-primary" value="Add User">
+				<input type="button" v-on:click="reDirect" value="Redirect to Fireusers">
 			</form>
 
 		</v-flex>
