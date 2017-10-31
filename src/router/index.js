@@ -5,6 +5,7 @@ const routerOptions = [
 	{ path: '/', component: 'Landing' },
 	{ path: '/home', component: 'Home' },
 	{ path: '/users', component: 'Users' },
+	{ path: '/fireusers', component: 'Fireusers' },
 	{ path: '/login', component: 'Login' },
 	{ path: '/signup', component: 'Signup' }
 ]

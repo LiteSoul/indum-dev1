@@ -58,6 +58,7 @@ export default {
       menuItems: [
         { title: "Home", path: "/home", icon: "home" },
         { title: "Users", path: "/users", icon: "face" },
+        { title: "Fireusers", path: "/fireusers", icon: "face" },
         { title: "Sign Up", path: "/signup", icon: "plus_one" },
         { title: "Log In", path: "/login", icon: "lock_open" }
       ]
