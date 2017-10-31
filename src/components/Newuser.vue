@@ -29,7 +29,6 @@
 					<input type="text" id="userEmail" class="form-control" v-model="newUser.email">
 				</div>
 				<input type="submit" class="btn btn-primary" value="Add User">
-				<input type="button" v-on:click="reDirect" value="Redirect to Fireusers">
 			</form>
 
 		</v-flex>
