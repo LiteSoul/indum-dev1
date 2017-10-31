@@ -19,7 +19,7 @@
 				<v-list two-line>
 					<v-subheader>Usuarios:</v-subheader>
 					<template v-for="user in users">
-						<v-list-tile avatar v-bind:key="user.lastname" @click="singleUser">
+						<v-list-tile avatar v-bind:key="user.lastname" @click="">
 							<v-list-tile-avatar>
 								<img v-bind:src="user.avatar">
 							</v-list-tile-avatar>
@@ -30,7 +30,6 @@
 								</v-list-tile-sub-title>
 							</v-list-tile-content>
 							<v-icon medium color="grey lighten-1">delete_forever</v-icon>
-							<router-link to="/user/:'user['.key']'">/user/{{user['.key']}}</router-link>
 						</v-list-tile>
 					</template>
 				</v-list>
@@ -50,12 +49,8 @@ export default {
   },
   methods: {
     singleUser: function() {
-      let userId = user[".key"];
-      console.log(user[".key"]);
-      this.$router.push({ path: `/user/${userId}` });
-      //router.push({ path: `/user/${userId}` }) // -> /user/123
+      this.$router.push({ path: "/user/${user['.key']}" });
     }
   }
 };
 </script>
-

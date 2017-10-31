@@ -13,6 +13,10 @@
 					<input type="text" id="userFirstname" class="form-control" v-model="newUser.firstname">
 				</div>
 				<div class="form-group">
+					<label for="userGender">Gender:</label>
+					<input type="text" id="userGender" class="form-control" v-model="newUser.gender">
+				</div>
+				<div class="form-group">
 					<label for="userMembership">Membership:</label>
 					<input type="text" id="userMembership" class="form-control" v-model="newUser.membership">
 				</div>
@@ -51,7 +55,8 @@ export default {
         firstname: "",
         lastname: "",
         membership: "",
-        phone: ""
+        phone: "",
+        gender: ""
       }
     };
   },

@@ -8,7 +8,9 @@ const routerOptions = [
 	{ path: '/fireusers', component: 'Fireusers' },
 	{ path: '/newuser', component: 'Newuser' },
 	{ path: '/login', component: 'Login' },
-	{ path: '/signup', component: 'Signup' }
+	{ path: '/signup', component: 'Signup' },
+	{ path: "/user/${user['.key']}" }
+	{ path: '/user/:id', component: 'User' }
 ]
 
 const routes = routerOptions.map(route => {
