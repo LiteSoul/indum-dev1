@@ -21,14 +21,14 @@ export default {
     users: db.ref("users")
   },
   methods: {
-    singleUser: function() {
-      this.$router.push({ path: "/user/${user['.key']}" });
+    thisUser: function() {
+      // currentUser = call db and get this user with paramsid
     }
   },
   id: "user['.key']",
   data() {
     return {
-      msg: "User ID"
+      msg: "User ID:"
     };
   }
 };

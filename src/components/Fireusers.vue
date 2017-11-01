@@ -17,7 +17,7 @@
 				</router-link>
 				
 				<v-list two-line>
-					<v-subheader>Usuarios:</v-subheader>
+					<v-subheader>Lista de Miembros:</v-subheader>
 					<template v-for="user in users">
 						<router-link :to="user['.key']" v-bind:key="user.lastname">
 						<v-list-tile avatar @click="">
@@ -27,7 +27,9 @@
 							<v-list-tile-content>
 								<v-list-tile-title>{{user.lastname}}, {{user.firstname}}</v-list-tile-title>
 								<v-list-tile-sub-title>
-									{{user.membership}} - {{user.phone}} - {{user.email}} - {{user.born}} - {{user['.key']}}
+									<span style="background-color:DarkSalmon;font-weight:bold">{{user.gender}}</span>
+									<span style="background-color:aquamarine;font-weight:bold">{{user.membership}}</span> - 
+									{{user.phone}} - {{user.email}}
 								</v-list-tile-sub-title>
 							</v-list-tile-content>
 							<!-- <v-icon medium color="grey lighten-1">delete_forever</v-icon> -->
@@ -52,7 +54,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 a {
   text-decoration: none;
 }

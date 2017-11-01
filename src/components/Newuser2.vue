@@ -19,7 +19,7 @@
       required
     ></v-text-field>
 		<v-select
-      v-bind:items="newUser.sex"
+      v-bind:items="newUser.genderOptions"
       v-model="newUser.gender"
       label="Género"
       :error-messages="errors.collect('gender')"
@@ -28,7 +28,7 @@
       required
     ></v-select>
     <v-select
-      v-bind:items="newUser.items"
+      v-bind:type="newUser.membershipOptions"
       v-model="newUser.membership"
       label="Membresía"
       :error-messages="errors.collect('membership')"
@@ -80,9 +80,9 @@ export default {
         lastname: "",
         firstname: "",
         gender: null,
-        sex: ["Hombre", "Mujer"],
+        genderOptions: ["Hombre", "Mujer"],
         membership: null,
-        items: ["Musculación", "Crossfit", "Aero", "Boxeo"],
+        membershipOptions: ["Musculación", "Crossfit", "Libre", "Boxeo"],
         born: "",
         phone: "",
         email: ""
@@ -92,10 +92,10 @@ export default {
   methods: {
     addUser: function() {
       db.ref("users").push(this.newUser);
-      this.newUser.born = "";
-      this.newUser.lastname = "";
-      this.newUser.firstname = "";
-      this.newUser.membership = "";
+      // this.newUser.born = "";
+      // this.newUser.lastname = "";
+      // this.newUser.firstname = "";
+      // this.newUser.membership = "";
       this.$validator.validateAll();
       this.$router.push("/fireusers");
     }
