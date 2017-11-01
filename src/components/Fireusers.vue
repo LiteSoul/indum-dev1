@@ -19,8 +19,8 @@
 				<v-list two-line>
 					<v-subheader>Usuarios:</v-subheader>
 					<template v-for="user in users">
-						<router-link :to="user['.key']">
-						<v-list-tile avatar v-bind:key="user.lastname" @click="">
+						<router-link :to="user['.key']" v-bind:key="user.lastname">
+						<v-list-tile avatar @click="">
 							<v-list-tile-avatar>
 								<img v-bind:src="user.avatar">
 							</v-list-tile-avatar>

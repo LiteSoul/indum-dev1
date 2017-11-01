@@ -60,6 +60,7 @@ export default {
         { title: "Miembros", path: "/users", icon: "people" },
         { title: "FireMiembros", path: "/fireusers", icon: "people" },
         { title: "Agregar", path: "/newuser", icon: "person_add" },
+        { title: "Agregar2", path: "/newuser2", icon: "person_add" },
         { title: "Registrarse", path: "/signup", icon: "lock_outline" },
         { title: "Ingresar", path: "/login", icon: "lock_open" }
       ]
