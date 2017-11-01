@@ -40,15 +40,23 @@
       v-model="newUser.born"
       label="Fecha de Nacimiento"
       :error-messages="errors.collect('born')"
-      v-validate="'required|alpha'"
+      v-validate="'required|date_format:DD-MM-YYYY'"
       data-vv-name="born"
+      required
+    ></v-text-field>
+    <v-text-field
+      v-model="newUser.phone"
+      label="Teléfono"
+      :error-messages="errors.collect('phone')"
+      v-validate="'required|numeric'"
+      data-vv-name="phone"
       required
     ></v-text-field>
     <v-text-field
       v-model="newUser.email"
       label="E-mail"
       :error-messages="errors.collect('email')"
-      v-validate="'required|email'"
+      v-validate="'required'"
       data-vv-name="email"
       required
     ></v-text-field>
