@@ -53,7 +53,7 @@
 export default {
   data() {
     return {
-      appTitle: "EnerGym Vue",
+      appTitle: "Gimnasio Energy",
       sidebar: false,
       menuItems: [
         { title: "Home", path: "/home", icon: "home" },
