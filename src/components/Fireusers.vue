@@ -17,9 +17,11 @@
 				</router-link>
 				
 				<v-list two-line>
-					<v-subheader>Lista de Miembros:</v-subheader>
+					<v-subheader>Miembros</v-subheader>
 					<template v-for="user in users">
 						<router-link :to="user['.key']" v-bind:key="user.lastname">
+						<!-- <router-link :to="stringer" v-bind:key="user.lastname"> -->
+							<!-- stringer could be user['.key']+user.lastname+user.firstname -->
 						<v-list-tile avatar @click="">
 							<v-list-tile-avatar>
 								<img v-bind:src="user.avatar">
