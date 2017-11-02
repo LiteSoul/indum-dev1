@@ -1,75 +1,104 @@
 <template>
+<v-flex xs12 sm6 offset-sm3>
+	<h5>Agregar nuevo miembro:</h5>
+  <form>
+    <v-text-field
+      v-model="newUser.lastname"
+      label="Apellido"
+      :error-messages="errors.collect('lastname')"
+      v-validate="'required|alpha'"
+      data-vv-name="lastname"
+      required
+    ></v-text-field>
+    <v-text-field
+      v-model="newUser.firstname"
+      label="Nombre"
+      :error-messages="errors.collect('firstname')"
+      v-validate="'required|alpha'"
+      data-vv-name="firstname"
+      required
+    ></v-text-field>
+		<v-select
+      v-bind:items="newUser.genderOptions"
+      v-model="newUser.gender"
+      label="Género"
+      :error-messages="errors.collect('gender')"
+      v-validate="'required'"
+      data-vv-name="gender"
+      required
+    ></v-select>
+    <v-select
+      v-bind:items="newUser.membershipOptions"
+      v-model="newUser.membership"
+      label="Membresía"
+      :error-messages="errors.collect('membership')"
+      v-validate="'required'"
+      data-vv-name="membership"
+      required
+    ></v-select>
+		<v-text-field
+      v-model="newUser.born"
+      label="Fecha de Nacimiento"
+      :error-messages="errors.collect('born')"
+      v-validate="'required|date_format:DD-MM-YYYY'"
+      data-vv-name="born"
+      required
+    ></v-text-field>
+    <v-text-field
+      v-model="newUser.phone"
+      label="Teléfono"
+      :error-messages="errors.collect('phone')"
+      v-validate="'required|numeric'"
+      data-vv-name="phone"
+      required
+    ></v-text-field>
+    <v-text-field
+      v-model="newUser.email"
+      label="E-mail"
+      :error-messages="errors.collect('email')"
+      v-validate="'required'"
+      data-vv-name="email"
+      required
+    ></v-text-field>
 
-	<v-layout row>
-		<v-flex xs12 sm6 offset-sm3>
-
-			<form id="form" class="form-inline" v-on:submit.prevent="addUser">
-				<div class="form-group">
-					<label for="userLastname">Last Name:</label>
-					<input type="text" id="userLastname" class="form-control" v-model="newUser.lastname">
-				</div>
-				<div class="form-group">
-					<label for="userFirstname">First Name:</label>
-					<input type="text" id="userFirstname" class="form-control" v-model="newUser.firstname">
-				</div>
-				<div class="form-group">
-					<label for="userGender">Gender:</label>
-					<input type="text" id="userGender" class="form-control" v-model="newUser.gender">
-				</div>
-				<div class="form-group">
-					<label for="userMembership">Membership:</label>
-					<input type="text" id="userMembership" class="form-control" v-model="newUser.membership">
-				</div>
-				<div class="form-group">
-					<label for="userBorn">Born:</label>
-					<input type="text" id="userBorn" class="form-control" v-model="newUser.born">
-				</div>
-				<div class="form-group">
-					<label for="userPhone">Phone:</label>
-					<input type="text" id="userPhone" class="form-control" v-model="newUser.phone">
-				</div>
-				<div class="form-group">
-					<label for="userEmail">Email:</label>
-					<input type="text" id="userEmail" class="form-control" v-model="newUser.email">
-				</div>
-				<input type="submit" class="btn btn-primary" value="Add User">
-			</form>
-
-		</v-flex>
-	</v-layout>
-
+    <v-btn @click="addUser">Enviar</v-btn>
+  </form>
+			</v-flex>
 </template>
 
 <script>
 import { db } from "../firebase";
 
 export default {
+  $validates: true,
   firebase: {
     users: db.ref("users")
   },
   data() {
     return {
       newUser: {
-        born: "",
-        email: "",
-        firstname: "",
         lastname: "",
-        membership: "",
+        firstname: "",
+        gender: null,
+        genderOptions: ["Hombre", "Mujer"],
+        membership: null,
+        membershipOptions: ["Musculación", "Crossfit", "Libre", "Boxeo"],
+        born: "",
         phone: "",
-        gender: ""
+        email: ""
       }
     };
   },
   methods: {
     addUser: function() {
       db.ref("users").push(this.newUser);
-      this.newUser.born = "";
-      this.newUser.lastname = "";
-      this.newUser.firstname = "";
-      this.newUser.membership = "";
+      // this.newUser.born = "";
+      // this.newUser.lastname = "";
+      // this.newUser.firstname = "";
+      // this.newUser.membership = "";
+      this.$validator.validateAll();
       this.$router.push("/fireusers");
     }
   }
 };
 </script>
-
