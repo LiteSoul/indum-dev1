@@ -22,7 +22,7 @@
 			</span>
 			<v-toolbar-title>
 				<router-link to="/" tag="span" style="cursor: pointer">
-					{{ appTitle }}
+					<img src="/static/img/logo.jpg" style="width:150px" alt="">{{ appTitle }}
 				</router-link>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>

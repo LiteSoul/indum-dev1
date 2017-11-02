@@ -25,7 +25,7 @@ export default {
       // currentUser = call db and get this user with paramsid
     }
   },
-  id: "user['.key']",
+  // id: "user['.key']",
   data() {
     return {
       msg: "User ID:"

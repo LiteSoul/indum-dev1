@@ -29,9 +29,11 @@
 							<v-list-tile-content>
 								<v-list-tile-title>{{user.lastname}}, {{user.firstname}}</v-list-tile-title>
 								<v-list-tile-sub-title>
-									<span style="background-color:DarkSalmon;font-weight:bold">{{user.gender}}</span>
+									<!-- <span style="background-color:DarkSalmon;font-weight:bold">{{user.gender}}</span>
 									<span style="background-color:aquamarine;font-weight:bold">{{user.membership}}</span> - 
-									{{user.phone}} - {{user.email}}
+									{{user.phone}} - {{user.email}} -->
+									<v-chip label small color="red lighten-4" class="ml-0">{{user.gender}}</v-chip>
+									<v-chip label small color="cyan lighten-4" class="ml-0">{{user.membership}}</v-chip>
 								</v-list-tile-sub-title>
 							</v-list-tile-content>
 							<!-- <v-icon medium color="grey lighten-1">delete_forever</v-icon> -->
