@@ -19,9 +19,8 @@
 				<v-list two-line>
 					<v-subheader>Miembros</v-subheader>
 					<template v-for="user in users">
+						<!-- <router-link :to="user.lastname+user.firstname+user['.key']" v-bind:key="user.lastname"> -->
 						<router-link :to="user['.key']" v-bind:key="user.lastname">
-						<!-- <router-link :to="stringer" v-bind:key="user.lastname"> -->
-							<!-- stringer could be user['.key']+user.lastname+user.firstname -->
 						<v-list-tile avatar @click="">
 							<v-list-tile-avatar>
 								<img v-bind:src="user.avatar">
@@ -29,9 +28,6 @@
 							<v-list-tile-content>
 								<v-list-tile-title>{{user.lastname}}, {{user.firstname}}</v-list-tile-title>
 								<v-list-tile-sub-title>
-									<!-- <span style="background-color:DarkSalmon;font-weight:bold">{{user.gender}}</span>
-									<span style="background-color:aquamarine;font-weight:bold">{{user.membership}}</span> - 
-									{{user.phone}} - {{user.email}} -->
 									<v-chip label small color="red lighten-4" class="ml-0">{{user.gender}}</v-chip>
 									<v-chip label small color="cyan lighten-4" class="ml-0">{{user.membership}}</v-chip>
 								</v-list-tile-sub-title>

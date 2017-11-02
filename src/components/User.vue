@@ -5,7 +5,11 @@
 
 			<div>
 				<h3>{{ msg }}</h3>
-					Hello {{ $route.params.id }}
+        <h5>ROUTE PARAMS ID: {{ $route.params.id }}</h5>
+        <h5>LASTNAME: {{ currentUser.lastname }}</h5>
+        <h5>FIRSTNAME: {{ currentUser.firstname }}</h5>
+        <h5>currentUser: {{ currentUser }}</h5>
+        <!-- <h5>TEST: {{ users.child('$route.params.id') }}</h5> -->
 			</div>
 		</v-flex>
 
@@ -15,16 +19,21 @@
 
 <script>
 import { db } from "../firebase";
+import Router from "../router";
 
 export default {
   firebase: {
     users: db.ref("users")
   },
-  methods: {
-    thisUser: function() {
-      // currentUser = call db and get this user with paramsid
-    }
+  firebase() {
+    return {
+      currentUser: {
+        source: db.ref("users/" + this.$route.params.id),
+        asObject: true
+      }
+    };
   },
+  methods: {},
   // id: "user['.key']",
   data() {
     return {
