@@ -3,6 +3,7 @@
 	<v-layout row>
 		<v-flex xs12 sm6 offset-sm3>
 			<v-btn @click="setAlan">clickerer</v-btn>
+			<v-btn @click="setBatman">createBatman</v-btn>
 			<v-btn @click="getAuthors">getter</v-btn>
 			<v-list two-line>
 				<v-subheader>Authors</v-subheader>
@@ -82,6 +83,14 @@ export default {
       let aTuringRef = fs.collection("authors").doc("aturing");
       aTuringRef.set({
         first: "Alan",
+        middle: "Mathison",
+        last: "Turing",
+        born: 1912
+      });
+    },
+    setBatman: function() {
+      fs.collection("authors").add({
+        first: "Alanis",
         middle: "Mathison",
         last: "Turing",
         born: 1912
