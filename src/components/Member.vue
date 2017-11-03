@@ -6,10 +6,7 @@
         </v-card-media>
         <v-card-title primary-title>
           <div>
-						<!-- <h5>{{showSnapshot}}</h5> -->
-						<!-- <h5 v-bind="showPayments">{{currentPay}}</h5> -->
-						<!-- <h5>{{currentMember.firstname}}</h5> -->
-						<!-- <h5>{{getData}}</h5> -->
+
 						<h3 v-bind="showSnapshot" class="headline mb-0">{{currentMember.lastname}}, {{currentMember.firstname}}
               <span>
                 <v-chip v-if="currentMember.gender==='Hombre'" small color="blue lighten-4" class="ml-0 gender">
@@ -41,20 +38,86 @@
           <v-btn flat color="orange">Explore</v-btn>
         </v-card-actions>
       </v-card>
+<br>
+<v-list>
+			<form>
+				<v-subheader>Agregar nuevo Pago:</v-subheader>
 
+    <v-flex xs11 sm5>
+      <v-dialog
+        persistent
+        v-model="modal"
+        lazy
+        full-width
+      >
+        <v-text-field
+          slot="activator"
+          label="Mes de Pago"
+          v-model="newPayment.date"
+          prepend-icon="event"
+          readonly
+        ></v-text-field>
+        <v-date-picker type="month" v-model="newPayment.date" scrollable actions>
+          <template slot-scope="{ save, cancel }">
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
+              <v-btn flat color="primary" @click="save">OK</v-btn>
+            </v-card-actions>
+          </template>
+        </v-date-picker>
+      </v-dialog>
+    </v-flex>
+
+				<v-flex xs12 sm6>
+					<v-select
+						v-bind:items="membershipOptions"
+						v-model="newPayment.membership"
+						label="Membresía"
+						:error-messages="errors.collect('membership')"
+						v-validate="'required'"
+						data-vv-name="membership"
+						required
+					></v-select>
+				</v-flex>
+				<v-flex xs12 sm6>
+					<v-slider
+						color="indigo"
+						label="Costo"
+						hint="Cantidad en pesos"
+						min="200"
+						max="800"
+						thumb-label
+						step="50"
+						snap
+						v-model="newPayment.cost"
+					></v-slider>
+				</v-flex>
+
+				<v-btn @click="addPayment">Confirmar Pago</v-btn>
+				<v-snackbar
+					:timeout="5000"
+					top
+					mode="vertical"
+					v-model="snackbar"
+				>El pago ha sido confirmado
+      	<v-btn flat color="pink" @click.native="snackbar = false">Cerrar</v-btn>
+    		</v-snackbar>
+
+			</form>
+</v-list>
+<br>
 			<v-list>
-				<v-subheader>Nuevo Pago</v-subheader>
-				<div>
-
-				</div>
-					<v-subheader>Pagos</v-subheader>
-					<v-btn @click="addPayment">addPayment</v-btn>
-					<v-btn @click="showPayments">consolePayments</v-btn>
-					<template v-for="payment in payments">
-								<v-list-tile-title>{{payment.cost}}, {{payment.year}}
-								</v-list-tile-title>
-					</template>
-				</v-list>
+				
+				<v-subheader>Pagos:</v-subheader>
+				
+				<v-btn @click="showPayments">consolePayments</v-btn>
+				<v-btn @click="showPayments2">showPayments2</v-btn>
+				<template v-bind="showPayments" v-for="payment in payments">
+					<v-list-tile-title v-bind="showPayments">{{payment.cost}}, {{payment.date}}
+					</v-list-tile-title>
+				</template>
+			</v-list>
 
     </v-flex>
   </v-layout>
@@ -67,14 +130,15 @@ import { fs } from "../firebase";
 export default {
   firestore() {
     return {
-      members: fs.collection("members"),
-      payments: fs.collection("payments")
+      members: fs.collection("members")
+      // payments: fs.collection("payments")
     };
   },
   data() {
     return {
-      payments: {},
-      currentPay: {},
+      snackbar: false,
+      menu: false,
+      modal: false,
       currentMember: {},
       membershipOptions: [
         "Musculación",
@@ -86,9 +150,9 @@ export default {
         "Pase Libre",
         "Medio Mes"
       ],
+      payments: {},
       newPayment: {
-        year: "",
-        month: "",
+        date: null,
         membership: "",
         cost: "",
         member: this.$route.params.id
@@ -109,25 +173,35 @@ export default {
   methods: {
     addPayment: function() {
       this.$firestore.payments.add(this.newPayment);
-      // this.newPayment.member = currentMember[];
-      // this.newMember.lastname = "";
-      // this.newMember.firstname = "";
-      // this.newMember.membership = "";
       this.$validator.validateAll();
-      // this.$router.push("/storeusers");
+      this.snackbar = true;
     },
     showPayments: function() {
       fs
         .collection("payments")
-        .where("year", "==", 2017)
+        .where("member", "==", this.$route.params.id)
         .get()
         .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            console.log(doc.id, " => ", doc.data());
+          querySnapshot.forEach(doc => {
+            // this.payments.push("crazy");
+            // console.log(doc.id, " => ", doc.data());
+            console.log(doc.data());
           });
         })
         .catch(function(error) {
           console.log("Error getting documents: ", error);
+        });
+    },
+    showPayments2: function() {
+      fs
+        .collection("payments")
+        .where("member", "==", this.$route.params.id)
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.docs.map(function(documentSnapshot) {
+            console.log(documentSnapshot.data());
+            // this.payments = documentSnapshot.data();
+          });
         });
     }
   }

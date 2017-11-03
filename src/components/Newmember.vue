@@ -36,14 +36,6 @@
       data-vv-name="membership"
       required
     ></v-select>
-		<!-- <v-text-field
-      v-model="newMember.born"
-      label="Fecha de Nacimiento"
-      :error-messages="errors.collect('born')"
-      v-validate="'required|date_format:DD-MM-YYYY'"
-      data-vv-name="born"
-      required
-    ></v-text-field> -->
     <v-flex>
       <v-subheader>Fecha de Nacimiento:</v-subheader>
     </v-flex>
