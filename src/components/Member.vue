@@ -7,13 +7,10 @@
         <v-card-title primary-title>
           <div>
 						<!-- <h5>{{showSnapshot}}</h5> -->
-						<h5 v-bind="showSnapshot">{{currentMember}}</h5>
+						<!-- <h5 v-bind="showPayments">{{currentPay}}</h5> -->
+						<!-- <h5>{{currentMember.firstname}}</h5> -->
 						<!-- <h5>{{getData}}</h5> -->
-						<!-- <h5>{{$route.params.id}}</h5>
-						<h5>{{currentMember}}</h5>
-						<h5>{{thisMember}}</h5>
-						<h5>{{members}}</h5>
-            <h3 class="headline mb-0">{{currentMember.lastname}}, {{currentMember.firstname}}
+						<h3 v-bind="showSnapshot" class="headline mb-0">{{currentMember.lastname}}, {{currentMember.firstname}}
               <span>
                 <v-chip v-if="currentMember.gender==='Hombre'" small color="blue lighten-4" class="ml-0 gender">
                   &#9794;</v-chip>
@@ -27,7 +24,7 @@
             </v-chip>
             <v-chip color="brown" text-color="white">
               <v-icon left>cake</v-icon>
-              {{currentMember.born}}      
+              {{currentMember.birth.day}}/{{currentMember.birth.month}}/{{currentMember.birth.year}}
             </v-chip>
             <v-chip color="green" text-color="white">
               <v-icon left>phone</v-icon>
@@ -36,7 +33,7 @@
             <v-chip color="red" text-color="white">
               <v-icon left>email</v-icon>
               {{currentMember.email}}      
-            </v-chip> -->
+            </v-chip>
           </div>
         </v-card-title>
         <v-card-actions>
@@ -44,6 +41,21 @@
           <v-btn flat color="orange">Explore</v-btn>
         </v-card-actions>
       </v-card>
+
+			<v-list>
+				<v-subheader>Nuevo Pago</v-subheader>
+				<div>
+
+				</div>
+					<v-subheader>Pagos</v-subheader>
+					<v-btn @click="addPayment">addPayment</v-btn>
+					<v-btn @click="showPayments">consolePayments</v-btn>
+					<template v-for="payment in payments">
+								<v-list-tile-title>{{payment.cost}}, {{payment.year}}
+								</v-list-tile-title>
+					</template>
+				</v-list>
+
     </v-flex>
   </v-layout>
 </template>
@@ -55,26 +67,70 @@ import { fs } from "../firebase";
 export default {
   firestore() {
     return {
-      members: fs.collection("members")
+      members: fs.collection("members"),
+      payments: fs.collection("payments")
     };
   },
   data() {
     return {
-      currentMember: {}
+      payments: {},
+      currentPay: {},
+      currentMember: {},
+      membershipOptions: [
+        "Musculación",
+        "Crossfit",
+        "Boxeo",
+        "Kickboxing",
+        "Defensa Personal",
+        "GAP",
+        "Pase Libre",
+        "Medio Mes"
+      ],
+      newPayment: {
+        year: "",
+        month: "",
+        membership: "",
+        cost: "",
+        member: this.$route.params.id
+      }
     };
   },
   computed: {
     showSnapshot: function() {
       // var thisRef = fs.collection("members").doc(this.$route.params.id);
       var thisRef = this.$firestore.members.doc(this.$route.params.id);
-      var getDoc = thisRef.onSnapshot(member => {
-        console.log("Document data:", member.data());
-        console.log(this.$route.params.id);
+      var getMember = thisRef.onSnapshot(member => {
+        // console.log("Document data:", member.data());
+        // console.log(this.$route.params.id);
         this.currentMember = member.data();
       });
     }
   },
-  methods: {}
+  methods: {
+    addPayment: function() {
+      this.$firestore.payments.add(this.newPayment);
+      // this.newPayment.member = currentMember[];
+      // this.newMember.lastname = "";
+      // this.newMember.firstname = "";
+      // this.newMember.membership = "";
+      this.$validator.validateAll();
+      // this.$router.push("/storeusers");
+    },
+    showPayments: function() {
+      fs
+        .collection("payments")
+        .where("year", "==", 2017)
+        .get()
+        .then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            console.log(doc.id, " => ", doc.data());
+          });
+        })
+        .catch(function(error) {
+          console.log("Error getting documents: ", error);
+        });
+    }
+  }
 };
 </script>
 

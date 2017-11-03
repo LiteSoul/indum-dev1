@@ -45,42 +45,41 @@
       required
     ></v-text-field> -->
     <v-flex>
-            <v-subheader>Fecha de Nacimiento:</v-subheader>
-          </v-flex>
-          <v-flex xs12 sm6>
-            <v-slider
-              color="indigo"
-              label="Día"
-              hint="Día de Nacimiento"
-              min="1"
-              max="31"
-              thumb-label
-              v-model="newMember.birth.day"
-            ></v-slider>
-          </v-flex>
-          <v-flex xs12 sm6>
-            <v-slider
-              color="indigo"
-              label="Mes"
-              hint="Mes de Nacimiento"
-              min="1"
-              max="12"
-              thumb-label
-              v-model="newMember.birth.month"
-            ></v-slider>
-          </v-flex>
-          <v-flex xs12 sm6>
-            <v-slider
-              color="indigo"
-              label="Año"
-              hint="Año de Nacimiento"
-              min="1950"
-              max="2020"
-              thumb-label
-              v-model="newMember.birth.year"
-            ></v-slider>
-          </v-flex>
-          
+      <v-subheader>Fecha de Nacimiento:</v-subheader>
+    </v-flex>
+    <v-flex xs12 sm6>
+      <v-slider
+        color="indigo"
+        label="Día"
+        hint="Día de Nacimiento"
+        min="1"
+        max="31"
+        thumb-label
+        v-model="newMember.birth.day"
+      ></v-slider>
+    </v-flex>
+    <v-flex xs12 sm6>
+      <v-slider
+        color="indigo"
+        label="Mes"
+        hint="Mes de Nacimiento"
+        min="1"
+        max="12"
+        thumb-label
+        v-model="newMember.birth.month"
+      ></v-slider>
+    </v-flex>
+    <v-flex xs12 sm6>
+      <v-slider
+        color="indigo"
+        label="Año"
+        hint="Año de Nacimiento"
+        min="1950"
+        max="2020"
+        thumb-label
+        v-model="newMember.birth.year"
+      ></v-slider>
+    </v-flex>
     <v-text-field
       v-model="newMember.phone"
       label="Teléfono"
@@ -124,7 +123,8 @@ export default {
         "Kickboxing",
         "Defensa Personal",
         "GAP",
-        "Pase Libre"
+        "Pase Libre",
+        "Medio Mes"
       ],
       newMember: {
         lastname: "",
