@@ -109,14 +109,7 @@
 <br>
 			<v-list>
 				
-				<v-subheader>Pagos:</v-subheader>
-				
-				<v-btn @click="showPayments">consolePayments</v-btn>
-				<v-btn @click="showPayments2">showPayments2</v-btn>
-				<template v-bind="showPayments" v-for="payment in payments">
-					<v-list-tile-title v-bind="showPayments">{{payment.cost}}, {{payment.date}}
-					</v-list-tile-title>
-				</template>
+				<v-subheader>Pagos realizados:</v-subheader>
 			</v-list>
 
     </v-flex>
@@ -130,8 +123,11 @@ import { fs } from "../firebase";
 export default {
   firestore() {
     return {
-      members: fs.collection("members")
+      members: fs.collection("members"),
       // payments: fs.collection("payments")
+      query: fs
+        .collection("payments")
+        .where("member", "==", this.$route.params.id)
     };
   },
   data() {
@@ -150,7 +146,6 @@ export default {
         "Pase Libre",
         "Medio Mes"
       ],
-      payments: {},
       newPayment: {
         date: null,
         membership: "",
@@ -175,35 +170,38 @@ export default {
       this.$firestore.payments.add(this.newPayment);
       this.$validator.validateAll();
       this.snackbar = true;
-    },
-    showPayments: function() {
-      fs
-        .collection("payments")
-        .where("member", "==", this.$route.params.id)
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(doc => {
-            // this.payments.push("crazy");
-            // console.log(doc.id, " => ", doc.data());
-            console.log(doc.data());
-          });
-        })
-        .catch(function(error) {
-          console.log("Error getting documents: ", error);
-        });
-    },
-    showPayments2: function() {
-      fs
-        .collection("payments")
-        .where("member", "==", this.$route.params.id)
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.docs.map(function(documentSnapshot) {
-            console.log(documentSnapshot.data());
-            // this.payments = documentSnapshot.data();
-          });
-        });
     }
+    // showPayments: function() {
+    //   fs
+    //     .collection("payments")
+    //     .where("member", "==", this.$route.params.id)
+    //     .get()
+    //     .then(querySnapshot => {
+    //       querySnapshot.forEach(doc => {
+    //         this.payments = doc.data();
+    //         // console.log(doc.id, " => ", doc.data());
+    //         console.log(doc.data());
+    //         console.log(this.payments);
+    //         // var newer = JSON.parse(JSON.stringify(doc.data()));
+    //         // console.log(newer);
+    //         newObj = { ...this.payments };
+    //         console.log(newObj);
+    //       });
+    //       this.mister = newObj;
+    //       console.log(this.mister);
+    //     })
+    //     .catch(function(error) {
+    //       console.log("Error getting documents: ", error);
+    //     });
+    // },
+    // showPayments2: function() {
+    //   let newObj = {};
+    //   this.$firestore.query.onSnapshot(querySnapshot => {
+    //     querySnapshot.docs.map(documentSnapshot => {
+    //       return documentSnapshot.data();
+    //     });
+    //   });
+    // }
   }
 };
 </script>
