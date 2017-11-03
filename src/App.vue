@@ -22,7 +22,7 @@
 			</span>
 			<v-toolbar-title>
 				<router-link to="/" tag="span" style="cursor: pointer">
-					<img src="/static/img/logo.jpg" style="width:150px" alt="">{{ appTitle }}
+					{{ appTitle }}
 				</router-link>
 			</v-toolbar-title>
 			<v-spacer></v-spacer>
@@ -56,12 +56,12 @@ export default {
       appTitle: "Gimnasio Energy",
       sidebar: false,
       menuItems: [
-        { title: "Home", path: "/home", icon: "home" },
-        { title: "Usuarios", path: "/users", icon: "people" },
-        { title: "FireMiembros", path: "/fireusers", icon: "people" },
-        { title: "StoreMiembros", path: "/storeusers", icon: "people" },
-        { title: "Agregar", path: "/newuser", icon: "person_add" },
-        { title: "AgregarStore", path: "/newmember", icon: "person_add" },
+        // { title: "Home", path: "/home", icon: "home" },
+        // { title: "Usuarios", path: "/users", icon: "people" },
+        // { title: "FireMiembros", path: "/fireusers", icon: "people" },
+        { title: "Miembros", path: "/storeusers", icon: "people" },
+        // { title: "Agregar", path: "/newuser", icon: "person_add" },
+        { title: "Agregar", path: "/newmember", icon: "person_add" },
         { title: "Registrarse", path: "/signup", icon: "lock_outline" },
         { title: "Ingresar", path: "/login", icon: "lock_open" }
       ]
