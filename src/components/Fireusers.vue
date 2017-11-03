@@ -4,11 +4,15 @@
 		<v-flex xs12 sm6 offset-sm3>
 			<v-btn @click="setAlan">clickerer</v-btn>
 			<v-btn @click="setBatman">createBatman</v-btn>
+			<v-btn @click="addData">addDataMan</v-btn>
 			<v-btn @click="getAuthors">getter</v-btn>
+			<!-- <v-btn>so?</v-btn> -->
 			<v-list two-line>
 				<v-subheader>Authors</v-subheader>
 				<template v-for="author in authors">
-					{{author.id}}
+					{{author['.key']}}
+					{{author.first}}
+					{{author.last}}
 				</template>
 			</v-list>
 
@@ -74,11 +78,22 @@ export default {
   // },
   firebase: function() {
     return {
-      users: db.ref("users"),
+      users: db.ref("users")
+      // authors: fs.collection("authors")
+    };
+  },
+  firestore() {
+    return {
       authors: fs.collection("authors")
     };
   },
   methods: {
+    addData: function() {
+      this.$firestore.authors.add({
+        firstname: "Amrani",
+        lastname: "Houssain"
+      });
+    },
     setAlan: function() {
       let aTuringRef = fs.collection("authors").doc("aturing");
       aTuringRef.set({
