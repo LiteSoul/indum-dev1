@@ -2,32 +2,31 @@
   <v-layout>
     <v-flex xs12 sm6 offset-sm3>
       <v-card>
-        <v-card-media src="" height="200px">
+        <v-card-media src="../static/img/profile-placeholder.png" height="200px">
         </v-card-media>
         <v-card-title primary-title>
           <div>
-            <h1 v-if="currentUser.gender==='Hombre'">Yes</h1>
-            <h1 v-else>No</h1>
-            <h3 class="headline mb-0">{{currentUser.lastname}}, {{currentUser.firstname}}</h3>
-            <v-chip v-if="currentUser.gender==='Hombre'" label small color="blue lighten-4" class="ml-0">
-              &#9794;{{currentUser.gender}}
-            </v-chip>
-            <v-chip v-else label small color="red lighten-4" class="ml-0">
-              {{currentUser.gender}}
-            </v-chip>
+            <h3 class="headline mb-0">{{currentUser.lastname}}, {{currentUser.firstname}}
+              <span>
+                <v-chip v-if="currentUser.gender==='Hombre'" small color="blue lighten-4" class="ml-0 gender">
+                  &#9794;</v-chip>
+                <v-chip v-else small color="red lighten-4" class="ml-0 gender">
+                  &#9792;</v-chip>
+              </span>
+            </h3>
             <v-chip color="orange" text-color="black">
               <v-icon left>star</v-icon>
               {{currentUser.membership}}
             </v-chip>
-            <v-chip color="primary" text-color="white">
+            <v-chip color="brown" text-color="white">
               <v-icon left>cake</v-icon>
               {{currentUser.born}}      
             </v-chip>
-            <v-chip color="primary" text-color="white">
+            <v-chip color="green" text-color="white">
               <v-icon left>phone</v-icon>
               {{currentUser.phone}}      
             </v-chip>
-            <v-chip color="primary" text-color="white">
+            <v-chip color="red" text-color="white">
               <v-icon left>email</v-icon>
               {{currentUser.email}}      
             </v-chip>
@@ -61,3 +60,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.gender {
+  font-size: 22px;
+}
+</style>

@@ -99,6 +99,8 @@ export default {
   },
   methods: {
     addUser: function() {
+      // GOTTA TRY THIS VUEFIRE BINDING:
+      // this.$firebaseRefs.users.push(this.newUser)
       db.ref("users").push(this.newUser);
       // this.newUser.born = "";
       // this.newUser.lastname = "";

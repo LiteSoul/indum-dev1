@@ -2,6 +2,16 @@
 
 	<v-layout row>
 		<v-flex xs12 sm6 offset-sm3>
+			<v-btn @click="setAlan">clickerer</v-btn>
+			<v-btn @click="getAuthors">getter</v-btn>
+			<v-list two-line>
+				<v-subheader>Authors</v-subheader>
+				<template v-for="author in authors">
+					{{author.id}}
+				</template>
+			</v-list>
+
+
 			<v-card>
 
 				<router-link to="/newuser">
@@ -51,10 +61,50 @@
 
 <script>
 import { db } from "../firebase";
+import { fs } from "../firebase";
 
 export default {
-  firebase: {
-    users: db.ref("users")
+  // firebase: {
+  //   users: db.ref("users")
+  // authors: {
+  //   source: fs.collection("authors"),
+  //   asObject: true
+  // }
+  // },
+  firebase: function() {
+    return {
+      users: db.ref("users"),
+      authors: fs.collection("authors")
+    };
+  },
+  methods: {
+    setAlan: function() {
+      let aTuringRef = fs.collection("authors").doc("aturing");
+      aTuringRef.set({
+        first: "Alan",
+        middle: "Mathison",
+        last: "Turing",
+        born: 1912
+      });
+    },
+    getAuthors: function() {
+      fs
+        .collection("authors")
+        .get()
+        .then(snapshot => {
+          snapshot.forEach(doc => {
+            console.log(doc.id, "=>", doc.data());
+          });
+        })
+        .catch(err => {
+          console.log("Error getting documents", err);
+        });
+    }
+  },
+  data() {
+    return {
+      authors: {}
+    };
   }
 };
 </script>
