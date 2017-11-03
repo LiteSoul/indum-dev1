@@ -6,7 +6,7 @@ import VueFirestore from 'vue-firestore'
 import App from './App'
 import router from './router'
 import VeeValidate from 'vee-validate'
-require('firebase/firestore')
+// require('firebase/firestore')
 
 Vue.use(Vuefire)
 Vue.use(VueFirestore)

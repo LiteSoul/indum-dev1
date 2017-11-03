@@ -6,7 +6,9 @@ const routerOptions = [
 	{ path: '/home', component: 'Home' },
 	{ path: '/users', component: 'Users' },
 	{ path: '/fireusers', component: 'Fireusers' },
+	{ path: '/storeusers', component: 'Storeusers' },
 	{ path: '/newuser', component: 'Newuser' },
+	{ path: '/newmember', component: 'Newmember' },
 	{ path: '/login', component: 'Login' },
 	{ path: '/signup', component: 'Signup' },
 	{ path: '/:id', component: 'User' }

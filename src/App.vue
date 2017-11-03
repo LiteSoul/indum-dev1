@@ -59,7 +59,9 @@ export default {
         { title: "Home", path: "/home", icon: "home" },
         { title: "Miembros", path: "/users", icon: "people" },
         { title: "FireMiembros", path: "/fireusers", icon: "people" },
+        { title: "StoreMiembros", path: "/storeusers", icon: "people" },
         { title: "Agregar", path: "/newuser", icon: "person_add" },
+        { title: "AgregarStore", path: "/newmember", icon: "person_add" },
         { title: "Registrarse", path: "/signup", icon: "lock_outline" },
         { title: "Ingresar", path: "/login", icon: "lock_open" }
       ]
