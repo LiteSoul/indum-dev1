@@ -26,10 +26,15 @@
 								<img v-bind:src="user.avatar">
 							</v-list-tile-avatar>
 							<v-list-tile-content>
-								<v-list-tile-title>{{user.lastname}}, {{user.firstname}}</v-list-tile-title>
+								<v-list-tile-title>{{user.lastname}}, {{user.firstname}}
+								</v-list-tile-title>
 								<v-list-tile-sub-title>
-									<v-chip label small color="red lighten-4" class="ml-0">{{user.gender}}</v-chip>
-									<v-chip label small color="cyan lighten-4" class="ml-0">{{user.membership}}</v-chip>
+									<v-chip v-if="user.gender==='Hombre'" small color="blue lighten-4" class="ml-0 gender">
+										&#9794;</v-chip>
+									<v-chip v-else small color="red lighten-4" class="ml-0 gender">
+										&#9792;</v-chip>
+									<v-chip label small color="cyan lighten-4" class="ml-0">
+										{{user.membership}}</v-chip>
 								</v-list-tile-sub-title>
 							</v-list-tile-content>
 							<!-- <v-icon medium color="grey lighten-1">delete_forever</v-icon> -->
@@ -57,5 +62,8 @@ export default {
 <style scoped>
 a {
   text-decoration: none;
+}
+.gender {
+  font-size: 22px;
 }
 </style>

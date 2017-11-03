@@ -82,7 +82,15 @@ export default {
         gender: null,
         genderOptions: ["Hombre", "Mujer"],
         membership: null,
-        membershipOptions: ["Musculación", "Crossfit", "Libre", "Boxeo"],
+        membershipOptions: [
+          "Musculación",
+          "Crossfit",
+          "Boxeo",
+          "Kickboxing",
+          "Defensa Personal",
+          "GAP",
+          "Pase Libre"
+        ],
         born: "",
         phone: "",
         email: ""
