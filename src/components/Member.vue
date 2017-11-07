@@ -35,6 +35,23 @@
         </v-card-title>
       </v-card>
 <br>
+<br>
+<v-data-table
+      v-bind="showPayments"
+      v-bind:headers="headers"
+      :items="memberPayments"
+      class="elevation-1"
+      hide-actions
+    >
+    <template slot="items" slot-scope="props">
+      <td class="text-xs-right"></td>
+      <td class="text-xs-right">{{ props.item.date }}</td>
+      <td class="text-xs-right">{{ props.item.membership }}</td>
+      <td class="text-xs-right">{{ props.item.cost }}</td>
+    </template>
+  </v-data-table>
+<br>
+<br>
 <v-list>
 			<form>
 				<v-subheader>Agregar nuevo Pago:</v-subheader>
@@ -90,7 +107,7 @@
 					></v-slider>
 				</v-flex>
 
-				<v-btn @click="addPayment">Confirmar Pago</v-btn>
+				<v-btn @click="addPayment" color="indigo" dark>Confirmar Pago</v-btn>
 				<v-snackbar
 					:timeout="5000"
 					top
@@ -103,14 +120,6 @@
 			</form>
 </v-list>
 <br>
-			<v-list>
-				<v-subheader>Pagos realizados:</v-subheader>
-        <div v-bind="showPayments">
-          <div v-for="payment in memberPayments">
-            {{payment.cost}}
-          </div>
-        </div>
-			</v-list>
 
     </v-flex>
   </v-layout>
@@ -152,7 +161,19 @@ export default {
         cost: "",
         member: this.$route.params.id
       },
-      memberPayments:[]
+      memberPayments:[],
+      headers: [
+        {
+          text: 'Pagos Realizados',
+          align: 'left',
+          sortable: false,
+          value: 'name'
+        },
+        { text: 'Mes Pagado', value: 'date' },
+        { text: 'Membresía', value: 'membership' },
+        { text: 'Monto', value: 'cost' }
+      ],
+      dialog: false
     };
   },
   computed: {
@@ -168,10 +189,8 @@ export default {
     showPayments() {
       this.$firestore.payerQuery.onSnapshot(querySnapshot => {
         querySnapshot.docs.map(documentSnapshot => {
-          console.log(documentSnapshot.data())
           this.memberPayments.push(documentSnapshot.data())
         });
-        console.log(this.memberPayments)
       });
     }
   },
