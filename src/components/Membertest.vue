@@ -4,60 +4,93 @@
 <br>
 
 <v-dialog v-model="dialog" persistent max-width="500px">
-      <v-btn color="primary" dark slot="activator">Open Dialog</v-btn>
+      <v-btn color="primary" dark slot="activator">Agregar Pago</v-btn>
       <v-card>
         <v-card-title>
-          <span class="headline">User Profile</span>
+          <span class="headline">Agregar Nuevo Pago</span>
         </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
-              <v-flex xs12 sm6 md4>
-                <v-text-field label="Legal first name" required></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-text-field label="Legal middle name" hint="example of helper text only on focus"></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md4>
-                <v-text-field label="Legal last name" hint="example of persistent helper text"
-                  persistent-hint
-                  required
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field label="Email" required></v-text-field>
-              </v-flex>
-              <v-flex xs12>
-                <v-text-field label="Password" type="password" required></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6>
-                <v-select
-                  label="Age"
-                  required
-                  :items="['0-17', '18-29', '30-54', '54+']"
-                ></v-select>
-              </v-flex>
-              <v-flex xs12 sm6>
-                <v-select
-                  label="Interests"
-                  multiple
-                  autocomplete
-                  chips
-                  :items="['Skiing', 'Ice hockey', 'Soccer', 'Basketball', 'Hockey', 'Reading', 'Writing', 'Coding', 'Basejump']"
-                ></v-select>
-              </v-flex>
+
+<v-flex xs11 sm5>
+      <v-dialog
+        persistent
+        v-model="modal"
+        lazy
+        full-width
+      >
+        <v-text-field
+          slot="activator"
+          label="Mes de Pago"
+          v-model="newPayment.date"
+          prepend-icon="event"
+          readonly
+        ></v-text-field>
+        <v-date-picker type="month" v-model="newPayment.date" scrollable actions>
+          <template slot-scope="{ save, cancel }">
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn flat color="primary" @click="cancel">Cancel</v-btn>
+              <v-btn flat color="primary" @click="save">OK</v-btn>
+            </v-card-actions>
+          </template>
+        </v-date-picker>
+      </v-dialog>
+    </v-flex>
+
+				<v-flex xs12 sm6>
+					<v-select
+						v-bind:items="membershipOptions"
+						v-model="newPayment.membership"
+						label="Membresía"
+						:error-messages="errors.collect('membership')"
+						v-validate="'required'"
+						data-vv-name="membership"
+						required
+					></v-select>
+				</v-flex>
+				<v-flex xs12 sm6>
+					<v-slider
+						color="indigo"
+						label="Monto"
+						hint="Cantidad en pesos"
+						min="200"
+						max="800"
+						thumb-label
+						step="50"
+						snap
+						v-model="newPayment.cost"
+					></v-slider>
+				</v-flex>
+
+
             </v-layout>
           </v-container>
-          <small>*indicates required field</small>
+
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="dialog = false">Save</v-btn>
-        </v-card-actions>
+
+        <v-btn color="blue darken-1" flat @click.native="dialog = false">Cancelar</v-btn>
+
+				<v-btn @click="addPayment" color="indigo" dark>Confirmar Pago</v-btn>
+				
+          </v-card-actions>
       </v-card>
     </v-dialog>
 
+    <v-snackbar
+					:timeout="5000"
+					top
+					mode="vertical"
+					v-model="snackbar"
+				>El pago ha sido confirmado
+      	<v-btn flat color="pink" @click.native="snackbar = false">
+        Cerrar</v-btn>
+    		</v-snackbar>
+
+<br>
 <br>
 <v-data-table
       v-bind="showPayments" 
@@ -127,7 +160,8 @@ export default {
         { text: 'Mes Pagado', value: 'date' },
         { text: 'Membresía', value: 'membership' },
         { text: 'Monto', value: 'cost' }
-      ]
+      ],
+      dialog: false
     };
   },
   computed: {
@@ -153,6 +187,7 @@ export default {
       this.$firestore.payments.add(this.newPayment);
       this.$validator.validateAll();
       this.snackbar = true;
+      this.dialog = false;
     }
   }
 };
