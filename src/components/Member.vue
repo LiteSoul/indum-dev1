@@ -105,12 +105,10 @@
 <br>
 			<v-list>
 				<v-subheader>Pagos realizados:</v-subheader>
-        <v-btn @click="showPayments">Mostrar pagos</v-btn>
-        <div>
-        {{herepays}}
-        </div>
-        <div v-for="apay in herepays">
-        {{apay}}
+        <div v-bind="computedPayments">
+          <div v-for="apay in herepays">
+            {{apay.cost}}
+          </div>
         </div>
 			</v-list>
 
@@ -154,7 +152,7 @@ export default {
         cost: "",
         member: this.$route.params.id
       },
-      herepays:{}
+      herepays:[]
     };
   },
   computed: {
@@ -166,49 +164,51 @@ export default {
         // console.log(this.$route.params.id);
         this.currentMember = member.data();
       });
+    },
+    computedPayments: function() {
+      let newObj = {};
+      this.$firestore.query.onSnapshot(querySnapshot => {
+        querySnapshot.docs.map(documentSnapshot => {
+          console.log(documentSnapshot.data())
+          // this.herepays=documentSnapshot.data(); 
+          this.herepays.push(documentSnapshot.data()); 
+          console.log(this.herepays)
+          // return this.herepays;
+        });
+      });
     }
-    // showPayments: function() {
-    //   let newObj = {};
-    //   this.$firestore.query.onSnapshot(querySnapshot => {
-    //     querySnapshot.docs.map(documentSnapshot => {
-    //       console.log(documentSnapshot.data())
-    //       this.herepays=documentSnapshot.data(); 
-    //       return documentSnapshot.data();
-    //     });
-    //   });
-    // }
   },
   methods: {
     addPayment: function() {
       this.$firestore.payments.add(this.newPayment);
       this.$validator.validateAll();
       this.snackbar = true;
-    },
-    showPayments() {
-      this.$firestore.query
-        .get()
-        .then(querySnapshot => {
-          querySnapshot.forEach(doc => {
-            this.herepays = doc.data();
-            console.log(doc.data().cost);
-            // console.log(doc.data());
-            console.log(this.herepays.membership);
-            // console.log(this.currentMember);
-            // console.log(this.stringpays);
-            // console.log(this.payments);
-            // var newer = JSON.parse(JSON.stringify(doc.data()));
-            // console.log(newer);
-            // newObj = { ...this.payments };
-            // console.log(newObj);
-            return
-          });
-          // this.mister = newObj;
-          // console.log(this.mister);
-        })
-        .catch(function(error) {
-          console.log("Error getting documents: ", error);
-        });
     }
+    // showPayments() {
+    //   this.$firestore.query
+    //     .get()
+    //     .then(querySnapshot => {
+    //       querySnapshot.forEach(doc => {
+    //         this.herepays = doc.data();
+    //         console.log(doc.data().cost);
+    //         // console.log(doc.data());
+    //         console.log(this.herepays.membership);
+    //         // console.log(this.currentMember);
+    //         // console.log(this.stringpays);
+    //         // console.log(this.payments);
+    //         // var newer = JSON.parse(JSON.stringify(doc.data()));
+    //         // console.log(newer);
+    //         // newObj = { ...this.payments };
+    //         // console.log(newObj);
+    //         return
+    //       });
+    //       // this.mister = newObj;
+    //       // console.log(this.mister);
+    //     })
+    //     .catch(function(error) {
+    //       console.log("Error getting documents: ", error);
+    //     });
+    // }
     // showPayments: function() {
     //   let newObj = {};
     //   this.$firestore.query.onSnapshot(querySnapshot => {
