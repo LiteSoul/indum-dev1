@@ -106,13 +106,12 @@
 			<v-list>
 				<v-subheader>Pagos realizados:</v-subheader>
         <v-btn @click="showPayments">Mostrar pagos</v-btn>
-        <template v-for="item in herepays">
-              {{item.membership}} - 
-              {{item.member}} - 
-              {{item.date}} - 
-              {{item.cost}}
-            </v-chip>
-        </template>
+        <div>
+        {{herepays}}
+        </div>
+        <div v-for="apay in herepays">
+        {{apay}}
+        </div>
 			</v-list>
 
     </v-flex>
@@ -201,6 +200,7 @@ export default {
             // console.log(newer);
             // newObj = { ...this.payments };
             // console.log(newObj);
+            return
           });
           // this.mister = newObj;
           // console.log(this.mister);
