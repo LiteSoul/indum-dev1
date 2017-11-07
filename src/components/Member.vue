@@ -5,9 +5,9 @@
         <v-card-media src="../static/img/profile-placeholder.png" height="200px">
         </v-card-media>
         <v-card-title primary-title>
-          <div>
+          <div v-bind="showSnapshot">
 
-						<h3 v-bind="showSnapshot" class="headline mb-0">{{currentMember.lastname}}, {{currentMember.firstname}}
+						<h3  class="headline mb-0">{{currentMember.lastname}}, {{currentMember.firstname}}
               <span>
                 <v-chip v-if="currentMember.gender==='Hombre'" small color="blue lighten-4" class="ml-0 gender">
                   &#9794;</v-chip>
@@ -125,7 +125,7 @@ export default {
     return {
       members: fs.collection("members"),
       payments: fs.collection("payments"),
-      query: fs
+      payerQuery: fs
         .collection("payments")
         .where("member", "==", this.$route.params.id)
     };
@@ -166,7 +166,7 @@ export default {
       });
     },
     showPayments() {
-      this.$firestore.query.onSnapshot(querySnapshot => {
+      this.$firestore.payerQuery.onSnapshot(querySnapshot => {
         querySnapshot.docs.map(documentSnapshot => {
           console.log(documentSnapshot.data())
           this.memberPayments.push(documentSnapshot.data())
