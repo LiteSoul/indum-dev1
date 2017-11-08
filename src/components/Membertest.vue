@@ -2,9 +2,11 @@
   <v-layout>
     <v-flex xs12 sm6 offset-sm3>
 <br>
+<v-btn @click="pushRedirect" color="primary">push redirect</v-btn>
 
 <v-dialog v-model="dialog" persistent max-width="500px">
       <v-btn color="primary" dark slot="activator">Agregar Pago</v-btn>
+      
       <v-card>
         <v-card-title>
           <span class="headline">Agregar Nuevo Pago</span>
@@ -100,7 +102,6 @@
       hide-actions
     >
     <template slot="items" slot-scope="props">
-      <td class="text-xs-right"></td>
       <td class="text-xs-right">{{ props.item.date }}</td>
       <td class="text-xs-right">{{ props.item.membership }}</td>
       <td class="text-xs-right">{{ props.item.cost }}</td>
@@ -151,13 +152,13 @@ export default {
       },
       memberPayments:[],
       headers: [
-        {
-          text: 'Pagos Realizados',
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
-        { text: 'Mes Pagado', value: 'date' },
+        // {
+        //   text: 'Pagos Realizados',
+        //   align: 'left',
+        //   sortable: false,
+        //   value: 'name'
+        // },
+        { text: 'Fecha', value: 'date' },
         { text: 'Membresía', value: 'membership' },
         { text: 'Monto', value: 'cost' }
       ],
@@ -183,11 +184,16 @@ export default {
     }
   },
   methods: {
-    addPayment: function() {
+    addPayment() {
       this.$firestore.payments.add(this.newPayment);
       this.$validator.validateAll();
       this.snackbar = true;
       this.dialog = false;
+      // this.$router.replace(`/${this.$route.params.id}`)
+      // this.$router.go(-1)
+    },
+    pushRedirect(){
+      console.log(this.memberPayments)
     }
   }
 };
