@@ -34,8 +34,9 @@
           </div>
         </v-card-title>
       </v-card>
+
 <br>
-<br>
+
 <v-data-table
       v-bind="showPayments"
       v-bind:headers="headers"
@@ -44,19 +45,26 @@
       hide-actions
     >
     <template slot="items" slot-scope="props">
-      <td class="text-xs-right"></td>
       <td class="text-xs-right">{{ props.item.date }}</td>
       <td class="text-xs-right">{{ props.item.membership }}</td>
       <td class="text-xs-right">{{ props.item.cost }}</td>
     </template>
   </v-data-table>
-<br>
-<br>
-<v-list>
-			<form>
-				<v-subheader>Agregar nuevo Pago:</v-subheader>
 
-    <v-flex xs11 sm5>
+<br>
+
+<v-dialog v-model="dialog" persistent max-width="500px">
+      <v-btn color="indigo" dark slot="activator">Agregar Pago</v-btn>
+      
+      <v-card>
+        <v-card-title>
+          <span class="headline">Agregar Nuevo Pago</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container grid-list-md>
+            <v-layout wrap>
+
+<v-flex xs11 sm5>
       <v-dialog
         persistent
         v-model="modal"
@@ -96,7 +104,7 @@
 				<v-flex xs12 sm6>
 					<v-slider
 						color="indigo"
-						label="Costo"
+						label="Monto"
 						hint="Cantidad en pesos"
 						min="200"
 						max="800"
@@ -107,18 +115,34 @@
 					></v-slider>
 				</v-flex>
 
+
+            </v-layout>
+          </v-container>
+
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+        <v-btn color="blue darken-1" flat @click.native="dialog = false">Cancelar</v-btn>
+
 				<v-btn @click="addPayment" color="indigo" dark>Confirmar Pago</v-btn>
-				<v-snackbar
+				
+          </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-snackbar
 					:timeout="5000"
 					top
 					mode="vertical"
 					v-model="snackbar"
 				>El pago ha sido confirmado
-      	<v-btn flat color="pink" @click.native="snackbar = false">Cerrar</v-btn>
+      	<v-btn flat color="pink" @click.native="snackbar = false">
+        Cerrar</v-btn>
     		</v-snackbar>
 
-			</form>
-</v-list>
+<br>
+<br>
 <br>
 
     </v-flex>
@@ -126,86 +150,93 @@
 </template>
 
 <script>
-import { fs } from "../firebase";
+import { fs } from '../firebase'
 // import Router from "../router";
 
 export default {
-  firestore() {
-    return {
-      members: fs.collection("members"),
-      payments: fs.collection("payments"),
-      payerQuery: fs
-        .collection("payments")
-        .where("member", "==", this.$route.params.id)
-    };
-  },
-  data() {
-    return {
-      snackbar: false,
-      menu: false,
-      modal: false,
-      currentMember: {},
-      membershipOptions: [
-        "Musculación",
-        "Crossfit",
-        "Boxeo",
-        "Kickboxing",
-        "Defensa Personal",
-        "GAP",
-        "Pase Libre",
-        "Medio Mes"
-      ],
-      newPayment: {
-        date: null,
-        membership: "",
-        cost: "",
-        member: this.$route.params.id
-      },
-      memberPayments:[],
-      headers: [
-        {
-          text: 'Pagos Realizados',
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
-        { text: 'Mes Pagado', value: 'date' },
-        { text: 'Membresía', value: 'membership' },
-        { text: 'Monto', value: 'cost' }
-      ],
-      dialog: false
-    };
-  },
-  computed: {
-    showSnapshot() {
-      // var thisRef = fs.collection("members").doc(this.$route.params.id);
-      var thisRef = this.$firestore.members.doc(this.$route.params.id);
-      var getMember = thisRef.onSnapshot(member => {
-        // console.log("Document data:", member.data());
-        // console.log(this.$route.params.id);
-        this.currentMember = member.data();
-      });
-    },
-    showPayments() {
-      this.$firestore.payerQuery.onSnapshot(querySnapshot => {
-        querySnapshot.docs.map(documentSnapshot => {
-          this.memberPayments.push(documentSnapshot.data())
-        });
-      });
-    }
-  },
-  methods: {
-    addPayment: function() {
-      this.$firestore.payments.add(this.newPayment);
-      this.$validator.validateAll();
-      this.snackbar = true;
-    }
-  }
-};
+	firestore() {
+		return {
+			members: fs.collection('members'),
+			payments: fs.collection('payments'),
+			payerQuery: fs
+				.collection('payments')
+				.where('member', '==', this.$route.params.id)
+		}
+	},
+	data() {
+		return {
+			snackbar: false,
+			menu: false,
+			modal: false,
+			currentMember: {},
+			membershipOptions: [
+				'Musculación',
+				'Crossfit',
+				'Boxeo',
+				'Kickboxing',
+				'Defensa Personal',
+				'GAP',
+				'Pase Libre',
+				'Medio Mes'
+			],
+			newPayment: {
+				date: null,
+				membership: '',
+				cost: '',
+				member: this.$route.params.id
+			},
+			memberPayments: [],
+			headers: [
+				// {
+				// 	text: 'Pagos Realizados',
+				// 	align: 'left',
+				// 	sortable: false,
+				// 	value: 'name'
+				// },
+				{ text: 'Fecha', value: 'date' },
+				{ text: 'Membresía', value: 'membership' },
+				{ text: 'Monto', value: 'cost' }
+			],
+			dialog: false
+		}
+	},
+	computed: {
+		showSnapshot() {
+			// var thisRef = fs.collection("members").doc(this.$route.params.id);
+			var thisRef = this.$firestore.members.doc(this.$route.params.id)
+			var getMember = thisRef.onSnapshot(member => {
+				// console.log("Document data:", member.data());
+				// console.log(this.$route.params.id);
+				this.currentMember = member.data()
+			})
+		},
+		showPayments() {
+			this.$firestore.payerQuery.onSnapshot(
+				querySnapshot => {
+					querySnapshot.docs.map(documentSnapshot => {
+						this.memberPayments.push(documentSnapshot.data())
+					})
+				},
+				error => {
+					console.log(error)
+				}
+			)
+		}
+	},
+	methods: {
+		addPayment: function() {
+			this.$firestore.payments.add(this.newPayment)
+			this.$validator.validateAll()
+			this.snackbar = true
+			this.dialog = false
+			this.$router.push('/storeusers')
+		}
+	}
+}
 </script>
 
 <style scoped>
 .gender {
-  font-size: 22px;
+	font-size: 22px;
 }
 </style>

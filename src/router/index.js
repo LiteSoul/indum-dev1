@@ -19,7 +19,7 @@ const routerOptions = [
 	{ path: '/login', component: 'Login' },
 	{ path: '/logout', component: 'Logout' },
 	{ path: '/signup', component: 'Signup' },
-	{ path: '/:id', component: 'Membertest' }
+	{ path: '/:id', component: 'Member' }
 ]
 
 const routes = routerOptions.map(route => {
