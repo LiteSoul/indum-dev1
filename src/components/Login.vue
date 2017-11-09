@@ -23,7 +23,7 @@
               required></v-text-field>
           </v-flex>
           <v-flex class="text-xs-center" mt-5>
-            <v-btn color="primary" type="submit">Enviar</v-btn>
+            <v-btn v-on:click="login" color="primary" type="submit">Enviar</v-btn>
           </v-flex>
         </v-layout>
       </form>
@@ -32,5 +32,15 @@
 </template>
 
 <script>
-export default {};
+export default {
+	name: 'login',
+	data: function() {
+		return {}
+	},
+	methods: {
+		login() {
+			this.$router.replace('storeusers')
+		}
+	}
+}
 </script>

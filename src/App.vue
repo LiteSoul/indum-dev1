@@ -51,23 +51,23 @@
 
 <script>
 export default {
-  data() {
-    return {
-      appTitle: "Gimnasio Energy",
-      sidebar: false,
-      menuItems: [
-        // { title: "Home", path: "/home", icon: "home" },
-        // { title: "Usuarios", path: "/users", icon: "people" },
-        // { title: "FireMiembros", path: "/fireusers", icon: "people" },
-        { title: "Miembros", path: "/storeusers", icon: "people" },
-        // { title: "Agregar", path: "/newuser", icon: "person_add" },
-        { title: "Agregar", path: "/newmember", icon: "person_add" },
-        { title: "Registrarse", path: "/signup", icon: "lock_outline" },
-        { title: "Ingresar", path: "/login", icon: "lock_open" }
-      ]
-    };
-  }
-};
+	data() {
+		return {
+			appTitle: 'Gimnasio Energy',
+			sidebar: false,
+			menuItems: [
+				{ title: 'Home', path: '/home', icon: 'home' },
+				// { title: "Usuarios", path: "/users", icon: "people" },
+				// { title: "FireMiembros", path: "/fireusers", icon: "people" },
+				{ title: 'Miembros', path: '/storeusers', icon: 'people' },
+				// { title: "Agregar", path: "/newuser", icon: "person_add" },
+				{ title: 'Agregar', path: '/newmember', icon: 'person_add' },
+				{ title: 'Registrarse', path: '/signup', icon: 'lock_outline' },
+				{ title: 'Ingresar', path: '/login', icon: 'lock_open' }
+			]
+		}
+	}
+}
 </script>
 
 <style lang="stylus">
