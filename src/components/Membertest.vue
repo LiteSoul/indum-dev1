@@ -115,92 +115,95 @@
 </template>
 
 <script>
-import { fs } from "../firebase";
+import { fs } from '../firebase'
 // import Router from "../router";
 
 export default {
-  firestore() {
-    return {
-      members: fs.collection("members"),
-      payments: fs.collection("payments"),
-      payerQuery: fs
-        .collection("payments")
-        .where("member", "==", this.$route.params.id)
-    };
-  },
-  data() {
-    return {
-      snackbar: false,
-      menu: false,
-      modal: false,
-      currentMember: {},
-      membershipOptions: [
-        "Musculación",
-        "Crossfit",
-        "Boxeo",
-        "Kickboxing",
-        "Defensa Personal",
-        "GAP",
-        "Pase Libre",
-        "Medio Mes"
-      ],
-      newPayment: {
-        date: null,
-        membership: "",
-        cost: "",
-        member: this.$route.params.id
-      },
-      memberPayments:[],
-      headers: [
-        // {
-        //   text: 'Pagos Realizados',
-        //   align: 'left',
-        //   sortable: false,
-        //   value: 'name'
-        // },
-        { text: 'Fecha', value: 'date' },
-        { text: 'Membresía', value: 'membership' },
-        { text: 'Monto', value: 'cost' }
-      ],
-      dialog: false
-    };
-  },
-  computed: {
-    showSnapshot() {
-      // var thisRef = fs.collection("members").doc(this.$route.params.id);
-      var thisRef = this.$firestore.members.doc(this.$route.params.id);
-      var getMember = thisRef.onSnapshot(member => {
-        // console.log("Document data:", member.data());
-        // console.log(this.$route.params.id);
-        this.currentMember = member.data();
-      });
-    },
-    showPayments() {
-      this.$firestore.payerQuery.onSnapshot(querySnapshot => {
-        querySnapshot.docs.map(documentSnapshot => {
-          this.memberPayments.push(documentSnapshot.data())
-        });
-      });
-    }
-  },
-  methods: {
-    addPayment() {
-      this.$firestore.payments.add(this.newPayment);
-      this.$validator.validateAll();
-      this.snackbar = true;
-      this.dialog = false;
-      // this.$router.replace(`/${this.$route.params.id}`)
-      // this.$router.go(-1)
-    },
-    pushRedirect(){
-      console.log(this.memberPayments)
-    }
-  }
-};
+	firestore() {
+		return {
+			members: fs.collection('members'),
+			payments: fs.collection('payments'),
+			payerQuery: fs
+				.collection('payments')
+				.where('member', '==', this.$route.params.id)
+		}
+	},
+	data() {
+		return {
+			snackbar: false,
+			menu: false,
+			modal: false,
+			currentMember: {},
+			membershipOptions: [
+				'Musculación',
+				'Crossfit',
+				'Boxeo',
+				'Kickboxing',
+				'Defensa Personal',
+				'GAP',
+				'Pase Libre',
+				'Medio Mes'
+			],
+			newPayment: {
+				date: null,
+				membership: '',
+				cost: '',
+				member: this.$route.params.id
+			},
+			memberPayments: [],
+			headers: [
+				// {
+				//   text: 'Pagos Realizados',
+				//   align: 'left',
+				//   sortable: false,
+				//   value: 'name'
+				// },
+				{ text: 'Fecha', value: 'date' },
+				{ text: 'Membresía', value: 'membership' },
+				{ text: 'Monto', value: 'cost' }
+			],
+			dialog: false
+		}
+	},
+	computed: {
+		showSnapshot() {
+			// var thisRef = fs.collection("members").doc(this.$route.params.id);
+			var thisRef = this.$firestore.members.doc(this.$route.params.id)
+			var getMember = thisRef.onSnapshot(member => {
+				// console.log("Document data:", member.data());
+				// console.log(this.$route.params.id);
+				this.currentMember = member.data()
+			})
+		},
+		showPayments() {
+			this.$firestore.payerQuery.onSnapshot(querySnapshot => {
+				querySnapshot.docs.map(documentSnapshot => {
+					this.memberPayments.push(documentSnapshot.data())
+				})
+			})
+		}
+	},
+	methods: {
+		addPayment() {
+			this.$firestore.payments.add(this.newPayment)
+			this.$validator.validateAll()
+			this.snackbar = true
+			this.dialog = false
+			// this.$router.replace(`/${this.$route.params.id}`)
+			// this.$router.go(-1)
+			this.$router.push('/storeusers')
+			// window.setTimeout(myFunction, 1000)
+		},
+		myFunction() {
+			// this.$router.go(-1)
+			this.$router.push('/storeusers')
+		}
+	}
+}
 </script>
 
 <style scoped>
 .gender {
-  font-size: 22px;
+	font-size: 22px;
 }
 </style>
