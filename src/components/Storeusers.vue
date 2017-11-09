@@ -22,6 +22,7 @@
 					<template v-for="member in members">
 						<!-- <router-link :to="member.lastname+member.firstname+member['.key']" v-bind:key="member.lastname"> -->
 						<router-link :to="member['.key']" v-bind:key="member.lastname">
+						<!-- <v-list-tile avatar @click="router.push('members/' + member['.key'])"> -->
 						<v-list-tile avatar @click="">
 							<v-list-tile-avatar>
 								<img v-bind:src="member.avatar">
@@ -51,28 +52,32 @@
 </template>
 
 <script>
-import { fs } from "../firebase";
+import { fs } from '../firebase'
 
 export default {
-  firestore() {
-    return {
-      members: fs.collection("members")
-    };
-  },
-  methods: {},
-  data() {
-    return {
-      members: {}
-    };
-  }
-};
+	firestore() {
+		return {
+			members: fs.collection('members')
+		}
+	},
+	methods: {
+		// enterMember() {
+		// 	this.$router.push('members/' + member['.key'])
+		// }
+	},
+	data() {
+		return {
+			members: {}
+		}
+	}
+}
 </script>
 
 <style scoped>
 a {
-  text-decoration: none;
+	text-decoration: none;
 }
 .gender {
-  font-size: 22px;
+	font-size: 22px;
 }
 </style>

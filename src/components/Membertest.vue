@@ -2,7 +2,6 @@
   <v-layout>
     <v-flex xs12 sm6 offset-sm3>
 <br>
-<v-btn @click="pushRedirect" color="primary">push redirect</v-btn>
 
 <v-dialog v-model="dialog" persistent max-width="500px">
       <v-btn color="primary" dark slot="activator">Agregar Pago</v-btn>
@@ -176,11 +175,16 @@ export default {
 			})
 		},
 		showPayments() {
-			this.$firestore.payerQuery.onSnapshot(querySnapshot => {
-				querySnapshot.docs.map(documentSnapshot => {
-					this.memberPayments.push(documentSnapshot.data())
-				})
-			})
+			this.$firestore.payerQuery.onSnapshot(
+				querySnapshot => {
+					querySnapshot.docs.map(documentSnapshot => {
+						this.memberPayments.push(documentSnapshot.data())
+					})
+				},
+				error => {
+					console.log(error)
+				}
+			)
 		}
 	},
 	methods: {
