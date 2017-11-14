@@ -1,4 +1,0 @@
-1
-reemplazar palabras hombre mujer por símbolos de género
-2
-si es hombre el toast cyan, si es mujer rosa
