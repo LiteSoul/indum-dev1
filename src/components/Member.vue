@@ -78,7 +78,7 @@
           prepend-icon="event"
           readonly
         ></v-text-field>
-        <v-date-picker type="month" v-model="newPayment.date" scrollable actions>
+        <v-date-picker type="month" v-model="newPayment.date" locale="es-sp" scrollable actions>
           <template slot-scope="{ save, cancel }">
             <v-card-actions>
               <v-spacer></v-spacer>
