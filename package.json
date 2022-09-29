@@ -16,7 +16,7 @@
     "vue-firestore": "^0.1.2",
     "vue-router": "^2.3.1",
     "vuefire": "^1.4.4",
-    "vuetify": "^0.16.9"
+    "vuetify": "^0.17.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
